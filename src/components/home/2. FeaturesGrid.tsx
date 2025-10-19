@@ -1,8 +1,7 @@
 "use client";
 
-import { Sunrise, Users, PenTool, BookOpen, FileText, MessageSquare, ChevronRight, Sparkles } from "lucide-react";
+import { Sunrise, Users, PenTool, BookOpen, FileText, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 const FeaturesGrid = () => {
   const features = [
@@ -10,49 +9,64 @@ const FeaturesGrid = () => {
       icon: Sunrise,
       title: "Early Morning Batch",
       description: "Flexible timings to fit your schedule, starting as early as 6 AM",
-      color: "from-orange-500 to-yellow-500",
-      bgColor: "bg-orange-50",
     },
     {
       icon: Users,
       title: "Small Batch Size",
       description: "Individual attention with maximum 10 students per batch",
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-50",
     },
     {
       icon: PenTool,
       title: "IELTS Writing Excellence",
       description: "Exclusive coaching focused on mastering the writing module",
-      color: "from-purple-500 to-pink-500",
-      bgColor: "bg-purple-50",
     },
     {
       icon: BookOpen,
       title: "Regular Grammar Classes",
       description: "Strong foundation building with dedicated grammar sessions",
-      color: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-50",
     },
     {
       icon: FileText,
       title: "Comprehensive Material",
       description: "Curated practice tests and study materials for all modules",
-      color: "from-red-500 to-rose-500",
-      bgColor: "bg-red-50",
     },
     {
       icon: MessageSquare,
       title: "One-on-One Speaking",
       description: "Personalized speaking classes with experienced trainers",
-      color: "from-indigo-500 to-blue-500",
-      bgColor: "bg-indigo-50",
     },
   ];
 
+  // Container animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  // Card animation variants
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.76, 0, 0.24, 1] as [number, number, number, number],
+      },
+    },
+  };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -66,104 +80,80 @@ const FeaturesGrid = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Heading */}
-        <div className="text-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-main-200/10 text-main-200 px-4 py-2 rounded-full mb-6 border border-main-200/20"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-semibold">What Makes Us Special</span>
-          </motion.div>
-
+        <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-main-400 mb-4"
+            transition={{ duration: 0.5 }}
+            className="text-3xl md:text-4xl font-bold text-[#011e48] mb-3"
           >
-            Why Choose{" "}
-            <span className="bg-gradient-to-r from-main-200 to-main-100 bg-clip-text text-transparent">
-              English Scholars
-            </span>
-            ?
+            Why Choose English Scholars
           </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-600 text-lg max-w-2xl mx-auto mb-6"
-          >
-            Experience personalized coaching with industry-leading features designed for your success
-          </motion.p>
 
           <motion.div
             initial={{ width: 0 }}
-            whileInView={{ width: 120 }}
+            whileInView={{ width: 80 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
-            className="h-1.5 bg-gradient-to-r from-main-200 via-main-100 to-main-200 mx-auto rounded-full"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="h-1 bg-[#011e48] mx-auto mb-4"
           />
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-gray-600 text-base max-w-2xl mx-auto"
+          >
+            Six key features that set us apart in IELTS coaching excellence
+          </motion.p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+        >
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                  ease: [0.21, 0.47, 0.32, 0.98],
-                }}
+                variants={cardVariants}
                 whileHover="hover"
-                className="group relative"
+                className="group relative h-full"
               >
+                {/* Card Container */}
                 <motion.div
                   variants={{
-                    hover: { y: -12 },
+                    hover: { y: -8 },
                   }}
                   transition={{
                     type: "spring",
-                    stiffness: 300,
-                    damping: 20,
+                    stiffness: 400,
+                    damping: 17,
                   }}
-                  className="relative h-full"
+                  className="relative"
                 >
-                  {/* Card with glass effect */}
-                  <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-200/50 hover:shadow-2xl transition-all duration-500 h-full overflow-hidden">
-                    {/* Gradient accent line */}
+                  {/* Main Card */}
+                  <div className="relative bg-white p-8 border-2 border-[#011e48] overflow-hidden shadow-sm h-full">
+                    {/* Background Fill Animation */}
                     <motion.div
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
-                      className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.color} origin-left`}
-                    />
-
-                    {/* Hover background gradient */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ x: "-100%" }}
                       variants={{
-                        hover: { opacity: 1, scale: 1 },
+                        hover: { x: "0%" },
                       }}
-                      transition={{ duration: 0.3 }}
-                      className={`absolute inset-0 ${feature.bgColor} opacity-0 group-hover:opacity-40 transition-opacity duration-500`}
+                      transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                      className="absolute inset-0 bg-[#011e48]"
                     />
 
                     {/* Content */}
                     <div className="relative z-10">
-                      {/* Icon with animated background */}
+                      {/* Icon */}
                       <motion.div
                         variants={{
                           hover: {
@@ -172,191 +162,176 @@ const FeaturesGrid = () => {
                           },
                         }}
                         transition={{ duration: 0.5 }}
-                        className="mb-6 relative inline-block"
+                        className="w-14 h-14 bg-[#011e48] group-hover:bg-white rounded-lg flex items-center justify-center mb-6 relative overflow-hidden"
                       >
-                        <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-10 rounded-2xl blur-xl group-hover:opacity-30 transition-opacity duration-500`} />
-                        <div className={`relative bg-gradient-to-br ${feature.color} p-4 rounded-2xl shadow-lg`}>
-                          <Icon className="w-7 h-7 text-white" />
-                        </div>
+                        {/* Icon background pulse */}
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          variants={{
+                            hover: {
+                              scale: 2,
+                              opacity: 0.2,
+                            },
+                          }}
+                          transition={{ duration: 0.4 }}
+                          className="absolute inset-0 bg-red-500"
+                        />
+                        <Icon className="w-7 h-7 text-white group-hover:text-[#011e48] transition-colors duration-400 relative z-10" />
                       </motion.div>
 
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-main-400 mb-3 group-hover:text-main-200 transition-colors duration-300">
+                      <h3 className="text-xl font-bold text-[#011e48] mb-3 group-hover:text-white transition-colors duration-400">
                         {feature.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-gray-600 leading-relaxed text-sm mb-4">
+                      <p className="text-gray-600 text-sm leading-relaxed group-hover:text-white/80 transition-colors duration-400">
                         {feature.description}
                       </p>
 
-                      {/* Learn more link */}
+                      {/* Number indicator */}
                       <motion.div
-                        initial={{ opacity: 0, x: -10 }}
+                        initial={{ opacity: 0.05 }}
                         variants={{
-                          hover: { opacity: 1, x: 0 },
+                          hover: { opacity: 0.1 },
                         }}
                         transition={{ duration: 0.3 }}
-                        className="flex items-center gap-2 text-main-200 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        className="absolute bottom-4 right-6 text-6xl font-bold text-[#011e48] group-hover:text-white transition-colors duration-400"
                       >
-                        <span>Learn more</span>
-                        <motion.div
-                          variants={{
-                            hover: { x: 4 },
-                          }}
-                        >
-                          <ChevronRight className="w-4 h-4" />
-                        </motion.div>
+                        {(index + 1).toString().padStart(2, "0")}
                       </motion.div>
                     </div>
-
-                    {/* Decorative corner elements */}
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      variants={{
-                        hover: { scale: 1, rotate: 0 },
-                      }}
-                      transition={{ duration: 0.3, delay: 0.05 }}
-                      className="absolute -top-1 -left-1 w-6 h-6"
-                    >
-                      <div className={`w-full h-full border-t-2 border-l-2 border-gradient-to-br ${feature.color} rounded-tl-lg`} style={{
-                        borderImage: `linear-gradient(135deg, currentColor, transparent) 1`,
-                      }} />
-                    </motion.div>
-                    <motion.div
-                      initial={{ scale: 0, rotate: 180 }}
-                      variants={{
-                        hover: { scale: 1, rotate: 0 },
-                      }}
-                      transition={{ duration: 0.3, delay: 0.1 }}
-                      className="absolute -bottom-1 -right-1 w-6 h-6"
-                    >
-                      <div className={`w-full h-full border-b-2 border-r-2 border-gradient-to-br ${feature.color} rounded-br-lg`} style={{
-                        borderImage: `linear-gradient(135deg, currentColor, transparent) 1`,
-                      }} />
-                    </motion.div>
-
-                    {/* Number badge */}
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 + 0.4, type: "spring" }}
-                      className="absolute top-6 right-6 w-10 h-10 bg-main-400/5 rounded-full flex items-center justify-center group-hover:bg-main-200/10 transition-colors duration-300"
-                    >
-                      <span className="text-main-400/40 font-bold text-sm group-hover:text-main-200 transition-colors duration-300">
-                        {(index + 1).toString().padStart(2, "0")}
-                      </span>
-                    </motion.div>
                   </div>
+
+                  {/* Decorative Corners */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.05 }}
+                    className="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-2 border-l-2 border-[#011e48]"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    className="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-2 border-r-2 border-[#011e48]"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.15 }}
+                    className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-[#011e48]"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-[#011e48]"
+                  />
                 </motion.div>
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
-        {/* Bottom CTA Section */}
+        {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-center mt-16"
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8"
-          >
-            <p className="text-gray-600 text-lg mb-2">
-              Ready to start your IELTS journey with us?
-            </p>
-            <p className="text-main-400 font-semibold">
-              Join thousands of successful students today
-            </p>
-          </motion.div>
+          <p className="text-gray-600 mb-8 text-sm">
+            Ready to start your IELTS journey with personalized coaching?
+          </p>
 
-          <motion.div whileHover="hover" whileTap="tap" className="inline-block">
-            <motion.div
+          <motion.div whileHover="hover" whileTap="tap">
+            <motion.a
+              href="/contact"
               variants={{
                 hover: { scale: 1.05 },
                 tap: { scale: 0.98 },
               }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="relative"
+              className="relative inline-block group"
             >
-              <Link
-                href="/contact"
-                className="relative group inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-main-400 to-main-200 text-white font-bold text-lg rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
-              >
-                {/* Animated background */}
+              <motion.div className="relative">
+                {/* Main Button */}
+                <div className="relative px-8 py-4 border-2 border-[#011e48] overflow-hidden">
+                  {/* Background Fill Animation */}
+                  <motion.div
+                    initial={{ x: "-100%" }}
+                    variants={{
+                      hover: { x: "0%" },
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.76, 0, 0.24, 1],
+                    }}
+                    className="absolute inset-0 bg-[#011e48]"
+                  />
+
+                  {/* Button Text */}
+                  <span className="relative font-semibold text-base tracking-wider uppercase text-[#011e48] group-hover:text-white transition-colors duration-400">
+                    Get Started Today
+                  </span>
+
+                  {/* Arrow Icon */}
+                  <motion.span
+                    variants={{
+                      hover: { x: 4 },
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="relative ml-2 inline-block text-[#011e48] group-hover:text-white transition-colors duration-400"
+                  >
+                    →
+                  </motion.span>
+                </div>
+
+                {/* Decorative Corners */}
                 <motion.div
-                  initial={{ x: "-100%" }}
+                  initial={{ scale: 0 }}
                   variants={{
-                    hover: { x: "0%" },
+                    hover: { scale: 1 },
                   }}
-                  transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-                  className="absolute inset-0 bg-gradient-to-r from-main-200 to-main-100"
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                  className="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-2 border-l-2 border-[#011e48]"
                 />
-
-                {/* Button content */}
-                <span className="relative z-10">Get Started Today</span>
                 <motion.div
+                  initial={{ scale: 0 }}
                   variants={{
-                    hover: { x: 4 },
+                    hover: { scale: 1 },
                   }}
-                  className="relative z-10"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </motion.div>
-
-                {/* Shine effect */}
-                <motion.div
-                  initial={{ x: "-100%", opacity: 0 }}
-                  variants={{
-                    hover: { x: "100%", opacity: [0, 1, 0] },
-                  }}
-                  transition={{ duration: 0.6 }}
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                  transition={{ duration: 0.3, delay: 0.15 }}
+                  className="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-2 border-r-2 border-[#011e48]"
                 />
-              </Link>
-
-              {/* Decorative Corners */}
-              <motion.div
-                initial={{ scale: 0 }}
-                variants={{
-                  hover: { scale: 1 },
-                }}
-                transition={{ duration: 0.3, delay: 0.1 }}
-                className="absolute -top-2 -left-2 w-5 h-5 border-t-2 border-l-2 border-main-200 rounded-tl-lg"
-              />
-              <motion.div
-                initial={{ scale: 0 }}
-                variants={{
-                  hover: { scale: 1 },
-                }}
-                transition={{ duration: 0.3, delay: 0.15 }}
-                className="absolute -top-2 -right-2 w-5 h-5 border-t-2 border-r-2 border-main-200 rounded-tr-lg"
-              />
-              <motion.div
-                initial={{ scale: 0 }}
-                variants={{
-                  hover: { scale: 1 },
-                }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-                className="absolute -bottom-2 -left-2 w-5 h-5 border-b-2 border-l-2 border-main-200 rounded-bl-lg"
-              />
-              <motion.div
-                initial={{ scale: 0 }}
-                variants={{
-                  hover: { scale: 1 },
-                }}
-                transition={{ duration: 0.3, delay: 0.25 }}
-                className="absolute -bottom-2 -right-2 w-5 h-5 border-b-2 border-r-2 border-main-200 rounded-br-lg"
-              />
-            </motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  variants={{
+                    hover: { scale: 1 },
+                  }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                  className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-[#011e48]"
+                />
+                <motion.div
+                  initial={{ scale: 0 }}
+                  variants={{
+                    hover: { scale: 1 },
+                  }}
+                  transition={{ duration: 0.3, delay: 0.25 }}
+                  className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-[#011e48]"
+                />
+              </motion.div>
+            </motion.a>
           </motion.div>
         </motion.div>
       </div>

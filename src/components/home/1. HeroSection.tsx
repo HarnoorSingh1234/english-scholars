@@ -108,7 +108,7 @@ const HeroSection = () => {
               >
                 <Link
                   href="/contact"
-                  className="relative group inline-flex items-center space-x-2 px-8 py-4 border-2 border-main-200 overflow-hidden text-lg font-semibold"
+                  className="relative group inline-flex items-center space-x-2 px-8 py-4 border-2 border-white overflow-hidden text-lg font-semibold"
                 >
                   <motion.div
                     initial={{ x: "-100%" }}
@@ -116,7 +116,7 @@ const HeroSection = () => {
                     transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] }}
                     className="absolute inset-0 bg-main-200"
                   />
-                  <span className="relative z-10 text-main-200 group-hover:text-white transition-colors duration-400">
+                  <span className="relative z-10 text-white group-hover:text-white transition-colors duration-400">
                     Book Free Demo Class
                   </span>
                   <motion.span

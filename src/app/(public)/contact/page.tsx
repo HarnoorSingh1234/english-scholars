@@ -25,6 +25,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { toast } from "sonner";
+import { formatPhoneNumber } from "@/lib/mobilenumber";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -66,7 +67,7 @@ export default function ContactPage() {
     {
       question: "How do I enroll in a course?",
       answer:
-        "You can enroll by filling the form on this page, calling us at +91-98765-43210, or visiting our institute directly. Our admission counselors will guide you through the process.",
+        "You can enroll by filling the form on this page, calling us at {process.env.NEXT_PUBLIC_MOBILE_NUMBER}, or visiting our institute directly. Our admission counselors will guide you through the process.",
     },
     {
       question: "Is there a registration fee?",
@@ -309,7 +310,7 @@ export default function ContactPage() {
                         href="tel:+919876543210"
                         className="text-sm text-gray-700 hover:text-[var(--color-main-500)]"
                       >
-                        +91-98765-43210
+                        {formatPhoneNumber(process.env.NEXT_PUBLIC_MOBILE_NUMBER)}
                       </a>
                       <p className="text-xs text-gray-500">Available: Mon-Sat, 9 AM - 7 PM</p>
                     </div>

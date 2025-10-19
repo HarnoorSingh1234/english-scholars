@@ -14,7 +14,7 @@ type WhatsAppButtonProps = {
 };
 
 export default function WhatsAppButton({
-  phoneNumber = "7973919963",
+  phoneNumber = process.env.NEXT_PUBLIC_MOBILE_NUMBER || "",
   message = "For further queries contact us on WhatsApp",
 }: WhatsAppButtonProps) {
   const handleClick = () => {

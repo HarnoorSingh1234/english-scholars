@@ -4,16 +4,6 @@ import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-export interface CarouselNavButtonProps {
-  direction: "left" | "right";
-  onClick: () => void;
-  className?: string;
-  ariaLabel?: string;
-  size?: "sm" | "md" | "lg";
-  variant?: "default" | "outline" | "ghost";
-}
-
-
 const sizeClasses = {
   sm: "w-8 h-8 md:w-9 md:h-9",
   md: "w-11 h-11 md:w-12 md:h-12",
@@ -31,6 +21,15 @@ const variantClasses = {
   outline: "bg-white border border-gray-300 hover:bg-gray-50",
   ghost: "bg-transparent hover:bg-white/10",
 };
+
+export interface CarouselNavButtonProps {
+  direction: "left" | "right";
+  onClick: () => void;
+  className?: string;
+  ariaLabel?: string;
+  size?: "sm" | "md" | "lg";
+  variant?: "default" | "outline" | "ghost";
+}
 
 export default function CarouselNavButton({
   direction,

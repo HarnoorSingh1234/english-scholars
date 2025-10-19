@@ -5,12 +5,15 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 
 const SuccessStats = () => {
-  const stats = useMemo(() => [
-    { icon: Award, number: 15, suffix: "+", label: "Years of Excellence" },
-    { icon: Users, number: 5000, suffix: "+", label: "Students Trained" },
-    { icon: TrendingUp, number: 95, suffix: "%", label: "Success Rate" },
-    { icon: Target, number: 8.0, suffix: "+", label: "Average Band Score" },
-  ], []);
+  const stats = useMemo(
+    () => [
+      { icon: Award, number: 15, suffix: "+", label: "Years of Excellence" },
+      { icon: Users, number: 5000, suffix: "+", label: "Students Trained" },
+      { icon: TrendingUp, number: 95, suffix: "%", label: "Success Rate" },
+      { icon: Target, number: 8.0, suffix: "+", label: "Average Band Score" },
+    ],
+    []
+  );
 
   const [counts, setCounts] = useState(stats.map(() => 0));
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -21,7 +24,7 @@ const SuccessStats = () => {
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimated) {
           setHasAnimated(true);
-          
+
           stats.forEach((stat, index) => {
             const duration = 2000;
             const steps = 60;
@@ -59,7 +62,10 @@ const SuccessStats = () => {
   }, [hasAnimated, stats]);
 
   return (
-    <section ref={sectionRef} className="py-20 bg-main-300 relative overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
+    >
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -80,7 +86,7 @@ const SuccessStats = () => {
           transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-main-400 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#011e48] mb-4">
             Our Success in Numbers
           </h2>
           <motion.div
@@ -88,7 +94,7 @@ const SuccessStats = () => {
             whileInView={{ width: 80 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
-            className="h-1 bg-gradient-to-r from-main-200 to-main-100 mx-auto rounded-full"
+            className="h-1 bg-gradient-to-r from-red-500 to-red-600 mx-auto rounded-full"
           />
         </motion.div>
 
@@ -110,10 +116,11 @@ const SuccessStats = () => {
         >
           {stats.map((stat, index) => {
             const Icon = stat.icon;
-            const displayValue = stat.number % 1 !== 0 
-              ? counts[index].toFixed(1) 
-              : Math.floor(counts[index]);
-            
+            const displayValue =
+              stat.number % 1 !== 0
+                ? counts[index].toFixed(1)
+                : Math.floor(counts[index]);
+
             return (
               <motion.div
                 key={index}
@@ -129,7 +136,7 @@ const SuccessStats = () => {
                     scale: 1,
                     transition: {
                       duration: 0.6,
-                      ease: [0.76, 0, 0.24, 1] as [number, number, number, number],
+                      ease: [0.76, 0, 0.24, 1],
                     },
                   },
                 }}
@@ -148,62 +155,64 @@ const SuccessStats = () => {
                     stiffness: 400,
                     damping: 17,
                   }}
-                  className="text-center p-6 bg-white rounded-xl shadow-md border-2 border-main-400/10 relative overflow-hidden h-full"
+                  className="relative"
                 >
-                  {/* Top border accent */}
-                  <motion.div
-                    initial={{ width: "0%" }}
-                    variants={{
-                      hover: { width: "100%" },
-                    }}
-                    transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute top-0 left-0 h-1 bg-gradient-to-r from-main-200 to-main-100"
-                  />
-
-                  {/* Background gradient on hover */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    variants={{
-                      hover: { opacity: 1 },
-                    }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-gradient-to-br from-main-400/5 to-transparent"
-                  />
-
-                  <div className="flex justify-center mb-3 relative z-10">
+                  {/* Main Card */}
+                  <div className="text-center p-6 md:p-8 bg-white border-2 border-[#011e48] relative overflow-hidden shadow-sm h-full">
+                    {/* Background Fill Animation */}
                     <motion.div
+                      initial={{ x: "-100%" }}
                       variants={{
-                        hover: {
-                          rotate: [0, -10, 10, -10, 0],
-                          scale: 1.1,
-                        },
+                        hover: { x: "0%" },
                       }}
-                      transition={{
-                        duration: 0.5,
-                      }}
-                      className="bg-main-500/10 p-4 rounded-full relative overflow-hidden"
-                    >
-                      <motion.div
-                        initial={{ scale: 0, opacity: 0 }}
-                        variants={{
-                          hover: {
-                            scale: 1.5,
-                            opacity: 0.2,
-                          },
-                        }}
-                        transition={{ duration: 0.4 }}
-                        className="absolute inset-0 bg-main-200 rounded-full"
-                      />
-                      <Icon className="w-8 h-8 text-main-500 relative z-10" />
-                    </motion.div>
+                      transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                      className="absolute inset-0 bg-[#011e48]"
+                    />
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      {/* Icon */}
+                      <div className="flex justify-center mb-4">
+                        <motion.div
+                          variants={{
+                            hover: {
+                              rotate: [0, -10, 10, -10, 0],
+                              scale: 1.15,
+                            },
+                          }}
+                          transition={{
+                            duration: 0.5,
+                          }}
+                          className="bg-[#011e48] group-hover:bg-white p-4 rounded-full relative overflow-hidden"
+                        >
+                          {/* Icon pulse effect */}
+                          <motion.div
+                            initial={{ scale: 0, opacity: 0 }}
+                            variants={{
+                              hover: {
+                                scale: 2,
+                                opacity: 0.2,
+                              },
+                            }}
+                            transition={{ duration: 0.4 }}
+                            className="absolute inset-0 bg-red-500 rounded-full"
+                          />
+                          <Icon className="w-8 h-8 text-white group-hover:text-[#011e48] transition-colors duration-400 relative z-10" />
+                        </motion.div>
+                      </div>
+
+                      {/* Number */}
+                      <p className="text-4xl md:text-5xl font-bold text-[#011e48] group-hover:text-white transition-colors duration-400 mb-2">
+                        {displayValue}
+                        {stat.suffix}
+                      </p>
+
+                      {/* Label */}
+                      <p className="text-sm md:text-base text-gray-600 group-hover:text-white/80 transition-colors duration-400 font-medium">
+                        {stat.label}
+                      </p>
+                    </div>
                   </div>
-                  
-                  <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-main-200 mb-2 relative z-10">
-                    {displayValue}{stat.suffix}
-                  </p>
-                  <p className="text-base md:text-lg text-main-400 font-medium relative z-10">
-                    {stat.label}
-                  </p>
 
                   {/* Decorative Corners */}
                   <motion.div
@@ -211,37 +220,51 @@ const SuccessStats = () => {
                     variants={{
                       hover: { scale: 1 },
                     }}
-                    transition={{ duration: 0.2, delay: 0.05 }}
-                    className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-main-200"
+                    transition={{ duration: 0.3, delay: 0.05 }}
+                    className="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-2 border-l-2 border-[#011e48]"
                   />
                   <motion.div
                     initial={{ scale: 0 }}
                     variants={{
                       hover: { scale: 1 },
                     }}
-                    transition={{ duration: 0.2, delay: 0.1 }}
-                    className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-main-200"
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    className="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-2 border-r-2 border-[#011e48]"
                   />
                   <motion.div
                     initial={{ scale: 0 }}
                     variants={{
                       hover: { scale: 1 },
                     }}
-                    transition={{ duration: 0.2, delay: 0.15 }}
-                    className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-main-200"
+                    transition={{ duration: 0.3, delay: 0.15 }}
+                    className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-[#011e48]"
                   />
                   <motion.div
                     initial={{ scale: 0 }}
                     variants={{
                       hover: { scale: 1 },
                     }}
-                    transition={{ duration: 0.2, delay: 0.2 }}
-                    className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-main-200"
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-[#011e48]"
                   />
                 </motion.div>
               </motion.div>
             );
           })}
+        </motion.div>
+
+        {/* Bottom Tagline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-12"
+        >
+          <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto">
+            Our commitment to excellence has helped thousands of students achieve their
+            dream IELTS scores and unlock global opportunities.
+          </p>
         </motion.div>
       </div>
     </section>

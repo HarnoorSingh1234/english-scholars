@@ -25,6 +25,8 @@ import {
   Phone,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { formatPhoneNumber } from "@/lib/mobilenumber";
+
 
 export default function CoursesPage() {
   const courses = [
@@ -482,7 +484,7 @@ export default function CoursesPage() {
             >
               <a href="tel:+919876543210">
                 <Phone className="w-5 h-5 mr-2" />
-                Call: +91-98765-43210
+                Call: {formatPhoneNumber(process.env.NEXT_PUBLIC_MOBILE_NUMBER)}
               </a>
             </Button>
           </div>

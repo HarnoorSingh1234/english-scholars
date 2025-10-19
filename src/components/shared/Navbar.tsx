@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { formatPhoneNumber } from "@/lib/mobilenumber";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -197,7 +198,7 @@ const Navbar = () => {
                 <Phone className="w-4 h-4" />
               </motion.div>
               <span className="group-hover:text-white transition-colors duration-300">
-                +91-98765-43210
+                {formatPhoneNumber(process.env.NEXT_PUBLIC_MOBILE_NUMBER)}
               </span>
               <motion.span
                 className="absolute -bottom-1 left-0 h-[1px] bg-white"
@@ -330,7 +331,7 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 bg-main-400/60 backdrop-blur-sm lg:hidden"
               style={{ top: "72px" }}
               onClick={() => setIsMenuOpen(false)}
             />
@@ -451,7 +452,7 @@ const Navbar = () => {
                   >
                     <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                     <span className="group-hover:text-white transition-colors duration-300">
-                      +91-98765-43210
+                      {formatPhoneNumber(process.env.NEXT_PUBLIC_MOBILE_NUMBER)}
                     </span>
                   </a>
                 </motion.div>

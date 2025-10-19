@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Youtube, Phone, Mail, MapPin, Clock } from "lucide-react";
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -135,7 +138,7 @@ const Footer = () => {
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-[var(--color-main-500)] flex-shrink-0" />
                 <a href="tel:+919876543210" className="text-sm hover:text-[var(--color-main-300)] transition-colors">
-                  +91-98765-43210
+                  {process.env.NEXT_PUBLIC_MOBILE_NUMBER}
                 </a>
               </li>
               <li className="flex items-center space-x-3">
