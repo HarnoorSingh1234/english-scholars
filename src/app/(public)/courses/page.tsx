@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
@@ -23,10 +22,11 @@ import {
   FileText,
   Target,
   Phone,
+  ChevronRight,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatPhoneNumber } from "@/lib/mobilenumber";
-
+import { motion } from "framer-motion";
 
 export default function CoursesPage() {
   const courses = [
@@ -214,188 +214,429 @@ export default function CoursesPage() {
   return (
     <>
       {/* Hero Banner */}
-      <section className="bg-gradient-to-br from-[var(--color-main-400)] to-[var(--color-main-500)] py-16">
-        <div className="container mx-auto px-4">
-          <nav className="text-sm mb-4">
-            <Link href="/" className="text-[var(--color-main-300)] hover:text-white">
+      <section className="relative bg-gradient-to-br from-[#011e48] via-[#011e48] to-[#023e73] py-20 md:py-32 overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v6h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundSize: "60px 60px",
+            }}
+          />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.nav
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm mb-8"
+          >
+            <Link href="/" className="text-white/70 hover:text-white transition-colors">
               Home
             </Link>
-            <span className="text-[var(--color-main-300)] mx-2">›</span>
+            <span className="text-white/50 mx-2">›</span>
             <span className="text-white">Courses</span>
-          </nav>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Our Specialized Programs
-          </h1>
-          <p className="text-xl text-white/90">
-            Comprehensive courses designed for your success
-          </p>
+          </motion.nav>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="max-w-4xl"
+          >
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Our Specialized Programs
+            </h1>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: 100 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="h-1 bg-gradient-to-r from-red-500 to-red-600 rounded-full mb-6"
+            />
+            <p className="text-xl md:text-2xl text-white/80">
+              Comprehensive courses designed for your success
+            </p>
+          </motion.div>
         </div>
+
+        {/* Decorative elements */}
+        <motion.div
+          animate={{
+            y: [0, -20, 0],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-20 right-10 w-32 h-32 rounded-full bg-red-500/10 blur-3xl"
+        />
       </section>
 
       {/* Courses Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23011e48' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v6h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundSize: "60px 60px",
+            }}
+          />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="space-y-16 max-w-6xl mx-auto">
-            {courses.map((course) => {
+            {courses.map((course, courseIndex) => {
               const Icon = course.icon;
               return (
-                <div
+                <motion.div
                   key={course.id}
                   id={course.id}
-                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: courseIndex * 0.2 }}
+                  whileHover="hover"
+                  className="group relative"
                 >
-                  {/* Course Header */}
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
-                    <div className="flex items-start space-x-4 mb-4 md:mb-0">
-                      <div className="bg-gradient-to-br from-[var(--color-main-400)] to-[var(--color-main-500)] p-4 rounded-xl">
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                      <div>
-                        <h2 className="text-3xl font-bold text-[var(--color-main-400)] mb-1">
-                          {course.title}
-                        </h2>
-                        <p className="text-[var(--color-main-500)] text-lg">{course.tagline}</p>
-                      </div>
-                    </div>
-                    {course.badge && (
-                      <Badge className="bg-[var(--color-main-200)] text-white px-4 py-2 text-sm">
-                        {course.badge}
-                      </Badge>
-                    )}
-                  </div>
+                  <motion.div
+                    variants={{
+                      hover: { scale: 1.01, y: -4 },
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    className="relative"
+                  >
+                    <div className="bg-white border-2 border-[#011e48] p-8 shadow-lg relative overflow-hidden">
+                      {/* Subtle background gradient on hover */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        variants={{
+                          hover: { opacity: 1 },
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0 bg-gradient-to-br from-[#011e48]/5 to-transparent"
+                      />
 
-                  {/* Course Details Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-6 bg-[var(--color-main-300)] rounded-xl">
-                    <div className="flex items-start space-x-2">
-                      <Clock className="w-5 h-5 text-[var(--color-main-500)] flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-xs text-gray-600">Duration</p>
-                        <p className="font-semibold text-[var(--color-main-400)]">{course.duration}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-2">
-                      <Users className="w-5 h-5 text-[var(--color-main-500)] flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-xs text-gray-600">Format</p>
-                        <p className="font-semibold text-[var(--color-main-400)] text-sm">{course.format}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-2">
-                      <Calendar className="w-5 h-5 text-[var(--color-main-500)] flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-xs text-gray-600">Schedule</p>
-                        <p className="font-semibold text-[var(--color-main-400)] text-sm">{course.schedule}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-2">
-                      <Video className="w-5 h-5 text-[var(--color-main-500)] flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-xs text-gray-600">Mode</p>
-                        <p className="font-semibold text-[var(--color-main-400)]">{course.mode}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Left Column - Main Content */}
-                    <div className="lg:col-span-2 space-y-6">
-                      {/* Course Highlights */}
-                      <div>
-                        <h3 className="text-xl font-bold text-[var(--color-main-400)] mb-4">
-                          Course Highlights
-                        </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          {course.highlights.map((highlight, idx) => (
-                            <div key={idx} className="flex items-start space-x-2">
-                              <Check className="w-5 h-5 text-[var(--color-main-500)] flex-shrink-0 mt-0.5" />
-                              <span className="text-gray-700 text-sm">{highlight}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Syllabus Breakdown */}
-                      <div>
-                        <h3 className="text-xl font-bold text-[var(--color-main-400)] mb-4">
-                          Syllabus Breakdown
-                        </h3>
-                        <div className="space-y-3">
-                          {course.syllabus.map((item, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg"
+                      {/* Content */}
+                      <div className="relative z-10">
+                        {/* Course Header */}
+                        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+                          <div className="flex items-start space-x-4 mb-4 md:mb-0">
+                            <motion.div
+                              whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                              transition={{ duration: 0.5 }}
+                              className="bg-gradient-to-br from-[#011e48] to-[#023e73] p-4"
                             >
-                              <div className="bg-[var(--color-main-500)] text-white font-bold px-3 py-1 rounded text-sm flex-shrink-0">
-                                {idx + 1}
-                              </div>
+                              <Icon className="w-8 h-8 text-white" />
+                            </motion.div>
+                            <div>
+                              <h2 className="text-3xl font-bold text-[#011e48] mb-1">
+                                {course.title}
+                              </h2>
+                              <p className="text-red-500 text-lg">{course.tagline}</p>
+                            </div>
+                          </div>
+                          {course.badge && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              whileInView={{ scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ type: "spring", delay: 0.3 }}
+                            >
+                              <Badge className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 text-sm">
+                                {course.badge}
+                              </Badge>
+                            </motion.div>
+                          )}
+                        </div>
+
+                        {/* Course Details Grid */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 p-6 bg-gray-50 border border-[#011e48]/10">
+                          {[
+                            { icon: Clock, label: "Duration", value: course.duration },
+                            { icon: Users, label: "Format", value: course.format },
+                            { icon: Calendar, label: "Schedule", value: course.schedule },
+                            { icon: Video, label: "Mode", value: course.mode },
+                          ].map((detail, idx) => (
+                            <motion.div
+                              key={idx}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.1 * idx }}
+                              className="flex items-start space-x-2"
+                            >
+                              <detail.icon className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                               <div>
-                                <p className="font-semibold text-[var(--color-main-400)]">
-                                  {item.week}
+                                <p className="text-xs text-gray-600">{detail.label}</p>
+                                <p className="font-semibold text-[#011e48] text-sm">
+                                  {detail.value}
                                 </p>
-                                <p className="text-gray-700 text-sm">{item.content}</p>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                          {/* Left Column - Main Content */}
+                          <div className="lg:col-span-2 space-y-8">
+                            {/* Course Highlights */}
+                            <div>
+                              <h3 className="text-xl font-bold text-[#011e48] mb-4 flex items-center">
+                                <span className="w-1 h-6 bg-red-500 mr-3"></span>
+                                Course Highlights
+                              </h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {course.highlights.map((highlight, idx) => (
+                                  <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.05 }}
+                                    className="flex items-start space-x-2"
+                                  >
+                                    <Check className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                                    <span className="text-gray-700 text-sm">{highlight}</span>
+                                  </motion.div>
+                                ))}
                               </div>
                             </div>
-                          ))}
-                        </div>
-                      </div>
 
-                      {/* Ideal For */}
-                      <div>
-                        <h3 className="text-xl font-bold text-[var(--color-main-400)] mb-4">
-                          Ideal For
-                        </h3>
-                        <div className="flex flex-wrap gap-2">
-                          {course.idealFor.map((item, idx) => (
-                            <Badge
-                              key={idx}
-                              variant="outline"
-                              className="border-[var(--color-main-500)] text-[var(--color-main-400)] px-4 py-2"
+                            {/* Syllabus Breakdown */}
+                            <div>
+                              <h3 className="text-xl font-bold text-[#011e48] mb-4 flex items-center">
+                                <span className="w-1 h-6 bg-red-500 mr-3"></span>
+                                Syllabus Breakdown
+                              </h3>
+                              <div className="space-y-3">
+                                {course.syllabus.map((item, idx) => (
+                                  <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    whileHover={{ x: 4 }}
+                                    className="flex items-start space-x-3 p-4 bg-white border-l-4 border-red-500 shadow-sm"
+                                  >
+                                    <div className="bg-[#011e48] text-white font-bold px-3 py-1 text-sm flex-shrink-0">
+                                      {idx + 1}
+                                    </div>
+                                    <div>
+                                      <p className="font-semibold text-[#011e48]">{item.week}</p>
+                                      <p className="text-gray-700 text-sm">{item.content}</p>
+                                    </div>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Ideal For */}
+                            <div>
+                              <h3 className="text-xl font-bold text-[#011e48] mb-4 flex items-center">
+                                <span className="w-1 h-6 bg-red-500 mr-3"></span>
+                                Ideal For
+                              </h3>
+                              <div className="flex flex-wrap gap-2">
+                                {course.idealFor.map((item, idx) => (
+                                  <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    whileHover={{ scale: 1.05 }}
+                                  >
+                                    <Badge
+                                      variant="outline"
+                                      className="border-[#011e48] text-[#011e48] px-4 py-2 hover:bg-[#011e48] hover:text-white transition-colors"
+                                    >
+                                      {item}
+                                    </Badge>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Right Column - Pricing & CTA */}
+                          <div className="lg:col-span-1">
+                            <motion.div
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.3 }}
+                              whileHover="hoverCard"
+                              className="relative group/price"
                             >
-                              {item}
-                            </Badge>
-                          ))}
+                              <motion.div
+                                variants={{
+                                  hoverCard: { scale: 1.02 },
+                                }}
+                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                className="relative"
+                              >
+                                <div className="bg-gradient-to-br from-[#011e48] to-[#023e73] border-2 border-[#011e48] p-6 text-white sticky top-24 overflow-hidden">
+                                  <motion.div
+                                    initial={{ opacity: 0 }}
+                                    variants={{
+                                      hoverCard: { opacity: 1 },
+                                    }}
+                                    transition={{ duration: 0.3 }}
+                                    className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-transparent"
+                                  />
+
+                                  <div className="relative z-10">
+                                    <div className="text-center mb-6">
+                                      <p className="text-sm opacity-90 mb-2">Course Fee</p>
+                                      <p className="text-5xl font-bold mb-1">{course.pricing}</p>
+                                      <p className="text-sm opacity-75">{course.priceNote}</p>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                      <motion.div whileHover="hover" whileTap="tap">
+                                        <motion.div
+                                          variants={{
+                                            hover: { scale: 1.05 },
+                                            tap: { scale: 0.95 },
+                                          }}
+                                          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                          className="relative"
+                                        >
+                                          <Link
+                                            href="/contact"
+                                            className="relative group/btn w-full inline-flex items-center justify-center space-x-2 px-6 py-4 border-2 border-white overflow-hidden"
+                                          >
+                                            <motion.div
+                                              initial={{ x: "-100%" }}
+                                              variants={{ hover: { x: "0%" } }}
+                                              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                                              className="absolute inset-0 bg-white"
+                                            />
+                                            <span className="relative z-10 text-white group-hover/btn:text-[#011e48] transition-colors duration-400 font-bold">
+                                              Enroll Now
+                                            </span>
+                                            <motion.span
+                                              variants={{ hover: { x: 4 } }}
+                                              className="relative z-10 text-white group-hover/btn:text-[#011e48] transition-colors duration-400"
+                                            >
+                                              <ChevronRight className="w-5 h-5" />
+                                            </motion.span>
+                                          </Link>
+
+                                          {/* Decorative Corners */}
+                                          <motion.div
+                                            initial={{ scale: 0 }}
+                                            variants={{ hover: { scale: 1 } }}
+                                            transition={{ duration: 0.3, delay: 0.1 }}
+                                            className="absolute -top-1.5 -left-1.5 w-3 h-3 border-t-2 border-l-2 border-white"
+                                          />
+                                          <motion.div
+                                            initial={{ scale: 0 }}
+                                            variants={{ hover: { scale: 1 } }}
+                                            transition={{ duration: 0.3, delay: 0.15 }}
+                                            className="absolute -top-1.5 -right-1.5 w-3 h-3 border-t-2 border-r-2 border-white"
+                                          />
+                                          <motion.div
+                                            initial={{ scale: 0 }}
+                                            variants={{ hover: { scale: 1 } }}
+                                            transition={{ duration: 0.3, delay: 0.2 }}
+                                            className="absolute -bottom-1.5 -left-1.5 w-3 h-3 border-b-2 border-l-2 border-white"
+                                          />
+                                          <motion.div
+                                            initial={{ scale: 0 }}
+                                            variants={{ hover: { scale: 1 } }}
+                                            transition={{ duration: 0.3, delay: 0.25 }}
+                                            className="absolute -bottom-1.5 -right-1.5 w-3 h-3 border-b-2 border-r-2 border-white"
+                                          />
+                                        </motion.div>
+                                      </motion.div>
+
+                                      <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="w-full border-2 border-white/50 text-white hover:bg-white/10 py-4 transition-colors flex items-center justify-center space-x-2"
+                                      >
+                                        <Download className="w-4 h-4" />
+                                        <span>Download Syllabus</span>
+                                      </motion.button>
+
+                                      <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="w-full border-2 border-white/50 text-white hover:bg-white/10 py-4 transition-colors"
+                                      >
+                                        Book Free Demo Class
+                                      </motion.button>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Decorative Corners */}
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  variants={{ hoverCard: { scale: 1 } }}
+                                  transition={{ duration: 0.3, delay: 0.05 }}
+                                  className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-[#011e48]"
+                                />
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  variants={{ hoverCard: { scale: 1 } }}
+                                  transition={{ duration: 0.3, delay: 0.1 }}
+                                  className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-[#011e48]"
+                                />
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  variants={{ hoverCard: { scale: 1 } }}
+                                  transition={{ duration: 0.3, delay: 0.15 }}
+                                  className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-[#011e48]"
+                                />
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  variants={{ hoverCard: { scale: 1 } }}
+                                  transition={{ duration: 0.3, delay: 0.2 }}
+                                  className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-[#011e48]"
+                                />
+                              </motion.div>
+                            </motion.div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Right Column - Pricing & CTA */}
-                    <div className="lg:col-span-1">
-                      <div className="bg-gradient-to-br from-[var(--color-main-400)] to-[var(--color-main-500)] rounded-xl p-6 text-white sticky top-24">
-                        <div className="text-center mb-6">
-                          <p className="text-sm opacity-90 mb-2">Course Fee</p>
-                          <p className="text-4xl font-bold mb-1">{course.pricing}</p>
-                          <p className="text-sm opacity-75">{course.priceNote}</p>
-                        </div>
-
-                        <div className="space-y-3">
-                          <Button
-                            asChild
-                            className="w-full bg-white text-[var(--color-main-400)] hover:bg-[var(--color-main-300)] font-semibold py-6"
-                          >
-                            <Link href="/contact">Enroll Now</Link>
-                          </Button>
-                          <Button
-                            asChild
-                            variant="outline"
-                            className="w-full border-2 border-white text-white hover:bg-white/10 py-6"
-                          >
-                            <Link href="/contact">
-                              <Download className="w-4 h-4 mr-2" />
-                              Download Syllabus
-                            </Link>
-                          </Button>
-                          <Button
-                            asChild
-                            variant="outline"
-                            className="w-full border-2 border-white text-white hover:bg-white/10 py-6"
-                          >
-                            <Link href="/contact">Book Free Demo Class</Link>
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                    {/* Card Decorative Corners */}
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      variants={{ hover: { scale: 1 } }}
+                      transition={{ duration: 0.3, delay: 0.05 }}
+                      className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-[#011e48]"
+                    />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      variants={{ hover: { scale: 1 } }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                      className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-[#011e48]"
+                    />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      variants={{ hover: { scale: 1 } }}
+                      transition={{ duration: 0.3, delay: 0.15 }}
+                      className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-[#011e48]"
+                    />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      variants={{ hover: { scale: 1 } }}
+                      transition={{ duration: 0.3, delay: 0.2 }}
+                      className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-[#011e48]"
+                    />
+                  </motion.div>
+                </motion.div>
               );
             })}
           </div>
@@ -403,58 +644,83 @@ export default function CoursesPage() {
       </section>
 
       {/* Special Features Bar */}
-      <section className="py-8 bg-[var(--color-main-300)]">
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-8 text-center">
-            <div className="flex items-center space-x-2">
-              <Users className="w-6 h-6 text-[var(--color-main-500)]" />
-              <span className="text-[var(--color-main-400)] font-semibold">Small Batch Size</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Sunrise className="w-6 h-6 text-[var(--color-main-500)]" />
-              <span className="text-[var(--color-main-400)] font-semibold">Early Morning Batches</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Clock className="w-6 h-6 text-[var(--color-main-500)]" />
-              <span className="text-[var(--color-main-400)] font-semibold">Flexible Timings</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <FileText className="w-6 h-6 text-[var(--color-main-500)]" />
-              <span className="text-[var(--color-main-400)] font-semibold">Free Study Material</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Target className="w-6 h-6 text-[var(--color-main-500)]" />
-              <span className="text-[var(--color-main-400)] font-semibold">Mock Tests Included</span>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-8 text-center"
+          >
+            {[
+              { icon: Users, text: "Small Batch Size" },
+              { icon: Sunrise, text: "Early Morning Batches" },
+              { icon: Clock, text: "Flexible Timings" },
+              { icon: FileText, text: "Free Study Material" },
+              { icon: Target, text: "Mock Tests Included" },
+            ].map((feature, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="flex items-center space-x-2 bg-gray-50 px-6 py-3 border border-[#011e48]/10"
+              >
+                <feature.icon className="w-6 h-6 text-red-500" />
+                <span className="text-[#011e48] font-semibold">{feature.text}</span>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-main-400)] mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-[#011e48] mb-4">
                 Frequently Asked Questions
               </h2>
-              <div className="w-20 h-1 bg-[var(--color-main-500)] mx-auto rounded-full"></div>
-            </div>
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: 80 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="h-1 bg-gradient-to-r from-red-500 to-red-600 mx-auto rounded-full"
+              />
+            </motion.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
-                <AccordionItem
+                <motion.div
                   key={index}
-                  value={`item-${index}`}
-                  className="border border-gray-200 rounded-lg px-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
                 >
-                  <AccordionTrigger className="text-left font-semibold text-[var(--color-main-400)] hover:text-[var(--color-main-500)] hover:no-underline">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-700 leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
+                  <AccordionItem
+                    value={`item-${index}`}
+                    className="border-2 border-[#011e48]/20 px-6 bg-white hover:border-red-500 transition-colors"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-[#011e48] hover:text-red-500 hover:no-underline">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-700 leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
               ))}
             </Accordion>
           </div>
@@ -462,32 +728,90 @@ export default function CoursesPage() {
       </section>
 
       {/* Enrollment CTA */}
-      <section className="py-16 bg-gradient-to-br from-[var(--color-main-400)] to-[var(--color-main-200)]">
-        <div className="container mx-auto px-4 text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Join thousands of successful students at English Scholars
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="bg-white text-[var(--color-main-400)] hover:bg-[var(--color-main-300)] font-semibold px-8 py-6 text-lg"
-            >
-              <Link href="/contact">Book Your Free Demo Class Today</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white/10 font-semibold px-8 py-6 text-lg"
-            >
-              <a href="tel:+919876543210">
-                <Phone className="w-5 h-5 mr-2" />
-                Call: {formatPhoneNumber(process.env.NEXT_PUBLIC_MOBILE_NUMBER)}
-              </a>
-            </Button>
-          </div>
+      <section className="py-16 bg-gradient-to-br from-[#011e48] to-[#023e73] relative overflow-hidden">
+        <div className="container mx-auto px-4 text-center text-white relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Start Your Journey?
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Join thousands of successful students at English Scholars
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div whileHover="hover" whileTap="tap">
+                <motion.div
+                  variants={{
+                    hover: { scale: 1.05 },
+                    tap: { scale: 0.98 },
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  className="relative"
+                >
+                  <Link
+                    href="/contact"
+                    className="relative group inline-flex items-center space-x-2 px-8 py-4 border-2 border-red-500 overflow-hidden"
+                  >
+                    <motion.div
+                      initial={{ x: "-100%" }}
+                      variants={{ hover: { x: "0%" } }}
+                      transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                      className="absolute inset-0 bg-red-500"
+                    />
+                    <span className="relative z-10 text-red-500 group-hover:text-white transition-colors duration-400 font-bold text-lg">
+                      Book Your Free Demo Class Today
+                    </span>
+                    <motion.span
+                      variants={{ hover: { x: 4 } }}
+                      className="relative z-10 text-red-500 group-hover:text-white transition-colors duration-400"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </motion.span>
+                  </Link>
+
+                  {/* Decorative Corners */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{ hover: { scale: 1 } }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    className="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-2 border-l-2 border-red-500"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{ hover: { scale: 1 } }}
+                    transition={{ duration: 0.3, delay: 0.15 }}
+                    className="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-2 border-r-2 border-red-500"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{ hover: { scale: 1 } }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-red-500"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{ hover: { scale: 1 } }}
+                    transition={{ duration: 0.3, delay: 0.25 }}
+                    className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-red-500"
+                  />
+                </motion.div>
+              </motion.div>
+
+              <motion.a
+                href={`tel:${process.env.NEXT_PUBLIC_MOBILE_NUMBER}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center justify-center space-x-2 px-8 py-4 border-2 border-white/50 hover:bg-white/10 font-bold text-lg transition-colors"
+              >
+                <Phone className="w-5 h-5" />
+                <span>Call: {formatPhoneNumber(process.env.NEXT_PUBLIC_MOBILE_NUMBER)}</span>
+              </motion.a>
+            </div>
+          </motion.div>
         </div>
       </section>
     </>
