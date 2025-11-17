@@ -7,12 +7,15 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatPhoneNumber } from "@/lib/mobilenumber";
+import { useAuth } from '@workos-inc/authkit-nextjs/components';
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const pathname = usePathname();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -176,7 +179,7 @@ const Navbar = () => {
             ))}
           </motion.div>
 
-          {/* Right Section - Phone & CTA */}
+          {/* Right Section - Auth & Phone */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -210,78 +213,81 @@ const Navbar = () => {
               />
             </motion.a>
 
-            {/* Book Demo Button */}
-            <motion.div whileHover="hover" whileTap="tap">
-              <motion.div
-                variants={{
-                  hover: { scale: 1.05 },
-                  tap: { scale: 0.98 },
-                }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="relative"
-              >
-                <Link
-                  href="/contact"
-                  className="relative group inline-flex items-center space-x-2 px-6 py-2.5 border border-red-500 overflow-hidden"
+            {/* User Menu or Sign In */}
+            {user ? (
+              <UserMenu />
+            ) : (
+              <motion.div whileHover="hover" whileTap="tap">
+                <motion.div
+                  variants={{
+                    hover: { scale: 1.05 },
+                    tap: { scale: 0.98 },
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  className="relative"
                 >
-                  {/* Background Fill */}
-                  <motion.div
-                    initial={{ x: "-100%" }}
-                    variants={{
-                      hover: { x: "0%" },
-                    }}
-                    transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute inset-0 bg-red-500"
-                  />
-
-                  <span className="relative z-10 font-semibold text-red-500 group-hover:text-white transition-colors duration-400">
-                    Book Demo
-                  </span>
-                  <motion.span
-                    variants={{
-                      hover: { x: 4 },
-                    }}
-                    className="relative z-10 text-red-500 group-hover:text-white transition-colors duration-400"
+                  <Link
+                    href="/login"
+                    prefetch={false}
+                    className="relative group inline-flex items-center space-x-2 px-6 py-2.5 border border-red-500 overflow-hidden"
                   >
-                    <ChevronRight className="w-4 h-4" />
-                  </motion.span>
-                </Link>
+                    <motion.div
+                      initial={{ x: "-100%" }}
+                      variants={{
+                        hover: { x: "0%" },
+                      }}
+                      transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                      className="absolute inset-0 bg-red-500"
+                    />
+                    <span className="relative z-10 font-semibold text-red-500 group-hover:text-white transition-colors duration-400">
+                      Sign In
+                    </span>
+                    <motion.span
+                      variants={{
+                        hover: { x: 4 },
+                      }}
+                      className="relative z-10 text-red-500 group-hover:text-white transition-colors duration-400"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </motion.span>
+                  </Link>
 
-                {/* Decorative Corners */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  variants={{
-                    hover: { scale: 1 },
-                  }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  className="absolute -top-1 -left-1 w-3 h-3 border-t border-l border-red-500"
-                />
-                <motion.div
-                  initial={{ scale: 0 }}
-                  variants={{
-                    hover: { scale: 1 },
-                  }}
-                  transition={{ duration: 0.3, delay: 0.15 }}
-                  className="absolute -top-1 -right-1 w-3 h-3 border-t border-r border-red-500"
-                />
-                <motion.div
-                  initial={{ scale: 0 }}
-                  variants={{
-                    hover: { scale: 1 },
-                  }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                  className="absolute -bottom-1 -left-1 w-3 h-3 border-b border-l border-red-500"
-                />
-                <motion.div
-                  initial={{ scale: 0 }}
-                  variants={{
-                    hover: { scale: 1 },
-                  }}
-                  transition={{ duration: 0.3, delay: 0.25 }}
-                  className="absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-red-500"
-                />
+                  {/* Decorative Corners */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    className="absolute -top-1 -left-1 w-3 h-3 border-t border-l border-red-500"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.15 }}
+                    className="absolute -top-1 -right-1 w-3 h-3 border-t border-r border-red-500"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="absolute -bottom-1 -left-1 w-3 h-3 border-b border-l border-red-500"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    variants={{
+                      hover: { scale: 1 },
+                    }}
+                    transition={{ duration: 0.3, delay: 0.25 }}
+                    className="absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-red-500"
+                  />
+                </motion.div>
               </motion.div>
-            </motion.div>
+            )}
           </motion.div>
 
           {/* Mobile Menu Button */}

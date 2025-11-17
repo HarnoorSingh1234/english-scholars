@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import WhatsAppButton from "@/components/shared/WhatsappButton";
+import { AuthKitProvider } from '@workos-inc/authkit-nextjs/components';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,11 +34,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased`}
       >
-        <Navbar />
-        <main className="pt-20">{children}</main>
-        <WhatsAppButton />
-        <Footer />
-        <Toaster />
+        <AuthKitProvider>
+          <Navbar />
+          <main className="pt-20">{children}</main>
+          <WhatsAppButton />
+          <Footer />
+          <Toaster />
+        </AuthKitProvider>
       </body>
     </html>
   );
